@@ -9,16 +9,19 @@ const io = require('socket.io')(http, {
 });
 
 io.on('connection', (socket) => {
+    const room = socket.handshake.query.room;
+    console.log(room)
+    socket.join(room);
+    io.to(room).emit('playerJoined');
+
     console.log('a user connected');
     socket.on('move', (data) => {
         console.log(data);
-        socket.broadcast.emit('move', data.x, data.y);
+        socket.broadcast.to(room).emit('move', data.x, data.y);
     });
     socket.on('moveEnd', () => {
-        console.log(
-            'moveEnd'
-        );
-        socket.broadcast.emit('stop');
+        console.log('moveEnd');
+        socket.broadcast.to(room).emit('moveEnd');
     });
 
     socket.on('disconnect', () => {
