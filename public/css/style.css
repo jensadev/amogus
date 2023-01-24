@@ -2,4 +2,27 @@ body {
     display: grid;
     place-content: center;
     background-color: #000;
+
+    margin: 0;
+    padding: 0;
+}
+
+#chat {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #fff;
+    color: #333;
+    height: 10rem;
+}
+
+#chat-input {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+
+#chat-messages {
+    overflow: hidden;
 }

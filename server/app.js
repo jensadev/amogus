@@ -14,7 +14,6 @@ io.on('connection', (socket) => {
     socket.join(room);
     io.to(room).emit('playerJoined');
 
-    console.log('a user connected');
     socket.on('move', (data) => {
         console.log(data);
         socket.broadcast.to(room).emit('move', data.x, data.y);
@@ -23,7 +22,10 @@ io.on('connection', (socket) => {
         console.log('moveEnd');
         socket.broadcast.to(room).emit('moveEnd');
     });
-
+    socket.on('chatMsg', (msg) => {
+        console.log(msg);
+        io.to(room).emit('chatMsg', msg);
+    });
     socket.on('disconnect', () => {
         console.log('user disconnected');
     });
